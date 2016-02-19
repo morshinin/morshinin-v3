@@ -59,14 +59,9 @@ gulp.task('html', function() {
 // Images optimization
 gulp.task('imagemin', () => {
   return gulp.src('build/img/not_optimized/*')
-    .pipe(imagemin({
-      progressive: true,
-      svgoPlugins: [
-        {removeViewBox: false},
-        {cleanupIDs: false}
-      ]
-    }))
-    .pipe(gulp.dest('build/img'));
+    .pipe(imagemin())
+    .pipe(gulp.dest('build/img'))
+    .pipe(browserSync.reload({stream:true}));
 });
 
 // HTML to JADE
@@ -104,12 +99,13 @@ gulp.task('typograf', function() {
     .pipe(gulp.dest('build'));
 });
 
-// WATCH JADE & SCSS
+// WATCH
 
 gulp.task('watch', function() {
   gulp.watch('./source/sass/**/*.scss', ['css']);
   gulp.watch('./source/jade/**/*.jade', ['html']);
   gulp.watch('./build/*.html', ['typograf']);
+  gulp.watch('./build/img/not_optimized/*', ['imagemin']);
 });
 
 // #LIVE RELOAD
