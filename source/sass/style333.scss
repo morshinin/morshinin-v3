@@ -1,0 +1,252 @@
+@import "mixins/mixins";
+
+// Font-size variables
+$heavy: 6.854rem;
+$lightHeavy: 4.236rem;
+$middle: 2.618rem;
+$welter: 1.618rem;
+$light: 1rem;
+$feather: 0.618rem;
+$bantam: 0.382rem;
+$fly: 0.236;
+
+.container {
+  /*width: 1170px;*/
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f5f5f5;
+  line-height: 1.618;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-weight: 300;
+  font-size: $heavy;
+  color: #f1f2f4;
+}
+
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: $lightHeavy;
+  }
+}
+
+h4 {
+  font-size: $welter;
+  font-weight: 700;
+}
+p {
+  margin: 0;
+}
+
+.logo {
+  font-size: $welter;
+  padding: 20px;
+  // line-height: $baseline;
+}
+
+.l-navbar {
+  color: #777;
+  background: #1c2027;
+}
+
+.l-navbar a {
+  color: #777;
+  font-size: $welter;
+  font-weight: 400;
+  @include tablet {
+    font-size: $light;
+  }
+}
+
+.main-contact {
+  padding-top: 20px;
+  margin: 0;
+  @include tablet {
+    width: 400px;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+.main-contact li {
+  margin: 0 20px;
+}
+
+.l-standout_description {
+  font-weight: 300;
+  font-size: $lightHeavy;
+  color: #f1f2f4;
+  margin-bottom: 51.776px;
+  opacity: .5;
+  @include tablet {
+    font-size: $middle;
+  }
+}
+
+.standout {
+  text-align: center;
+}
+
+.standout img {
+  width: 38.75rem;
+  height: auto;
+  margin: 0 auto;
+  margin-bottom: -0.382rem;
+}
+
+.l-portfolio {
+  &_image {
+    position: relative;
+
+    img {
+      box-shadow: -1px 1px 7px rgba(0,0,0,.5);
+    }
+    &:hover .l-portfolio_text {
+      visibility: visible;
+      opacity: 1;
+    }
+    &:hover .l-portfolio_text p {
+      padding: 150px 15px 0 25px;
+    }
+  }
+  &_text {
+    position: absolute;
+    top: 0;
+    background: rgba(245,245,245,.9);
+    background-clip: content-box;
+    // color: #f1f2f4;
+    font-size: $welter;
+    height: 100%;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    padding: 0 48px 25px 0;
+    transition: visibility 0.5s ease, opacity 0.5s ease;
+    p {
+      padding: 130px 5px 0 5px;
+      // text-shadow: 1px 1px 7px #000;
+      font-weight: 700;
+      transition: padding 0.5s ease;
+    }
+  }
+}
+
+.portfolio-item {
+  position: relative;
+  margin-bottom: 25.888px;
+}
+
+@media screen and (max-width: 960px) {
+  .portfolio-item {
+    margin-bottom: 0;
+  }
+}
+
+.portfolio-item div {
+  margin-bottom: 25.888px;
+}
+
+.portfolio-item img {
+  /*	border-radius: 10px;
+
+	border: 2px solid #333;*/
+  margin-bottom: 25.888px;
+  text-align: center;
+}
+
+/* #About */
+
+#about {
+  margin-bottom: 51.776px;
+}
+
+#about p {
+  margin-bottom: 1rem;
+}
+
+.l-about_left {
+  text-align: right;
+}
+
+@media screen and (max-width: 960px) {
+  .l-about_left {
+    text-align: left;
+  }
+}
+
+.l-about_photo {
+  width: 60%;
+  display: inline-block;
+  margin-bottom: 25.888px;
+  margin-top: 7px;
+  @include tablet {
+    width: 100%;
+  }
+}
+
+
+.technology-list {
+  margin-bottom: 25.888px;
+}
+
+.technology-list .img-thumbnail {
+  border: none;
+  background: none;
+}
+@media screen and (max-width: 768px) {
+  .technology-list .img-thumbnail {
+    margin-bottom: 25.888px;
+  }
+}
+
+.wrap-1 {
+  background-color: #323a45;
+  padding-top: 51.776px;
+}
+
+.portfolio {
+  padding-top: 50px;
+}
+
+.l-footer_topSection {
+  padding: 51.776px 0;
+}
+
+.l-footer_title {
+  margin-bottom: 25.888px;
+}
+
+.l-footer_contact li:not(:last-of-type) {
+  margin-bottom: 16px;
+}
+
+.l-footer_social li {
+  display: inline;
+}
+
+.l-footer_social li:not(:nth-of-type(1)) {
+  margin-left: 10px;
+}
+.l-footer_mail {
+  @include tablet {
+    font-size: $light;
+  }
+}
+.l-copy {
+  border-top: 1px solid #777;
+  padding: 25.888px 0;
+}
+
+footer {
+  color: #777;
+  background: #1c2027;
+}
+
+footer a {
+  color: #777;
+}
