@@ -20,7 +20,8 @@ var
     decode = require('gulp-html-entities'), // decode html entities after converting to jade чтобы русские символы норм отображал
     css2scss = require('gulp-css-scss'),
     uncss = require('gulp-uncss'), // чистит css от неиспользуемых селекторов
-    typograf = require('gulp-typograf');
+    typograf = require('gulp-typograf'),
+    imagemin = require('gulp-imagemin');
 
 // SCSS to CSS
 gulp.task('css', function() {
@@ -40,7 +41,6 @@ gulp.task('css', function() {
 });
 
 // CSS LINT
-
 gulp.task('lint', function() {
   gulp.src('./build/*.css')
     .pipe(csslint())
@@ -48,13 +48,25 @@ gulp.task('lint', function() {
 });
 
 // JADE to HTML
-
 gulp.task('html', function() {
   gulp.src('./source/jade/*.jade')
     .pipe(jade({pretty:true}))
     .pipe(gulp.dest('./build'))
     // .pipe(connect.reload());
     .pipe(browserSync.reload({stream:true}));
+});
+
+// Images optimization
+gulp.task('imagemin', () => {
+  return gulp.src('build/img/not_optimized/*')
+    .pipe(imagemin({
+      progressive: true,
+      svgoPlugins: [
+        {removeViewBox: false},
+        {cleanupIDs: false}
+      ]
+    }))
+    .pipe(gulp.dest('build/img'));
 });
 
 // HTML to JADE
@@ -97,6 +109,7 @@ gulp.task('typograf', function() {
 gulp.task('watch', function() {
   gulp.watch('./source/sass/**/*.scss', ['css']);
   gulp.watch('./source/jade/**/*.jade', ['html']);
+  gulp.watch('./build/*.html', ['typograf']);
 });
 
 // #LIVE RELOAD
