@@ -1,6 +1,9 @@
 // #VARS
 
 var gulp = require('gulp');
+var
+    config = require('./config.json'),
+    config_ftp = require('./config_ftp.json');
 var postcss = require('gulp-postcss');
 var sass = require('gulp-sass');
 // var connect = require('gulp-connect');
@@ -21,7 +24,8 @@ var
     css2scss = require('gulp-css-scss'),
     uncss = require('gulp-uncss'), // чистит css от неиспользуемых селекторов
     typograf = require('gulp-typograf'),
-    imagemin = require('gulp-imagemin');
+    imagemin = require('gulp-imagemin'),
+    ftp = require('vinyl-ftp');
 
 // SCSS to CSS
 gulp.task('css', function() {
@@ -49,9 +53,9 @@ gulp.task('lint', function() {
 
 // JADE to HTML
 gulp.task('html', function() {
-  gulp.src('./source/jade/*.jade')
+  gulp.src(config.jadeSrc)
     .pipe(jade({pretty:true}))
-    .pipe(gulp.dest('./build'))
+    .pipe(gulp.dest(config.jadeDest))
     // .pipe(connect.reload());
     .pipe(browserSync.reload({stream:true}));
 });
@@ -97,6 +101,25 @@ gulp.task('typograf', function() {
   gulp.src('build/index.html')
     .pipe(typograf({lang: 'ru'}))
     .pipe(gulp.dest('build'));
+});
+
+// Deploy via FTP
+gulp.task('deploy', function() {
+  var conn = ftp.create( {
+    host: 'ftp.a0018013.xsph.ru',
+    user: 'a0018013',
+    password: 'zucuceviev',
+    parallel: 10
+  });
+  var globs = [
+    'build/fonts/**',
+    'build/img/**',
+    'build/index.html',
+    'build/style333.css'
+  ];
+  return gulp.src(globs, { base: '.', buffer: false})
+    .pipe(conn.newer('/public_html/79265405446.ru/front-end'))
+    .pipe(conn.dest('/public_html/79265405446.ru/front-end'));
 });
 
 // WATCH
